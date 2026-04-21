@@ -1,0 +1,707 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+/*---------------------------------------------------*/
+.rune-icon {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Glow */
+.glow {
+  animation: glowAnim 2s infinite ease-in-out;
+}
+
+@keyframes glowAnim {
+  0% { filter: drop-shadow(0 0 5px currentColor); }
+  50% { filter: drop-shadow(0 0 20px currentColor); }
+  100% { filter: drop-shadow(0 0 5px currentColor); }
+}
+
+/* Pulse */
+.pulse {
+  animation: pulseAnim 1.8s infinite ease-in-out;
+}
+
+@keyframes pulseAnim {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* Rotate */
+.rotate {
+  animation: rotateAnim 4s linear infinite;
+}
+
+@keyframes rotateAnim {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* All animations */
+.all {
+  animation: glowAnim 2s infinite ease-in-out,
+             pulseAnim 1.8s infinite ease-in-out,
+             rotateAnim 6s linear infinite;
+}
+
+/*---------------------------------------------------*/
+.download-btn {
+  transform: translateY(0);
+}
+
+.download-btn:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 0 20px #ffb347;
+}
+/*---------------------------------------------------*/
+/* Character card hover animation */
+div[style*="cursor: pointer"] {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+div[style*="cursor: pointer"]:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 0 20px rgba(255, 180, 70, 0.4);
+}
+/*---------------------------------------------------*/
+/* 🔥 Floating Ember Particles */
+.particle-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255,150,50,0.4) 2px, transparent 2px);
+  background-size: 4px 4px;
+  animation: drift 20s linear infinite;
+  opacity: 0.25;
+}
+
+@keyframes drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-200px); }
+}
+
+/* 🪨 Glowing Rune Circle */
+.rune-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 4px solid rgba(255,140,0,0.4);
+  box-shadow: 0 0 40px rgba(255,120,0,0.6);
+  animation: rotateRune 18s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes rotateRune {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ✨ Animated Buttons */
+.magic-btn {
+  padding: 1rem 2rem;
+  background: linear-gradient(90deg, #ffb347, #ff8c00);
+  border-radius: 10px;
+  color: #2c1a0f;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: 0.3s;
+  box-shadow: 0 0 15px rgba(255,120,0,0.5);
+}
+
+.magic-btn:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 0 25px rgba(255,150,0,0.9);
+}
+
+.magic-btn.secondary {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  box-shadow: 0 0 10px rgba(255,150,0,0.3);
+}
+
+/* 🗿 Feature Cards */
+.feature-card {
+  background: #3b2a1a;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  transition: 0.3s;
+  border: 2px solid rgba(255,120,0,0.3);
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 25px rgba(255,120,0,0.6);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+  text-shadow: 0 0 15px rgba(255,120,0,0.8);
+}
+/*---------------------------------------------------*/
+/* 🪔 Torch flicker lighting overlay */
+.torch-flicker {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 20% 0%, rgba(255,180,80,0.35), transparent 55%),
+              radial-gradient(circle at 80% 0%, rgba(255,140,60,0.25), transparent 55%);
+  mix-blend-mode: screen;
+  animation: torchFlicker 1.4s infinite ease-in-out;
+  opacity: 0.7;
+}
+
+@keyframes torchFlicker {
+  0%   { opacity: 0.55; }
+  40%  { opacity: 0.8; }
+  70%  { opacity: 0.6; }
+  100% { opacity: 0.75; }
+}
+
+/* 🌀 Rune idle + activation */
+.rune-circle.rune-idle {
+  transition: 0.4s;
+}
+
+.rune-activate:hover ~ .rune-circle, .rune-activate:hover + .rune-circle {
+  /* fallback if DOM order changes */
+}
+
+.rune-activate:hover {
+  box-shadow: 0 0 30px rgba(255,180,80,0.9);
+}
+
+/* More explicit: pulse the circle when hovering the play button */
+.rune-activate:hover ~ .rune-circle,
+.rune-activate:hover ~ .rune-circle.rune-idle {
+  animation: rotateRune 12s linear infinite, runePulse 1.2s ease-in-out infinite;
+}
+
+@keyframes runePulse {
+  0%   { box-shadow: 0 0 30px rgba(255,140,0,0.6); }
+  50%  { box-shadow: 0 0 55px rgba(255,200,120,0.95); }
+  100% { box-shadow: 0 0 30px rgba(255,140,0,0.6); }
+}
+
+/* 🪨 Stone tablet frame already handled inline, but you can add texture if you like */
+.cinematic-intro {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: introFade 1.4s ease-out forwards;
+}
+
+@keyframes introFade {
+  0%   { opacity: 0; transform: translateY(30px); }
+  60%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+/*---------------------------------------------------*/
+/* PAGE CONTAINER */
+.login-container {
+  position: relative;
+  min-height: 100vh;
+  background: #1f140d;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* STONE TABLET FRAME */
+.login-frame {
+  width: 380px;
+  padding: 2.5rem;
+  border-radius: 18px;
+  border: 4px solid #5b3a23;
+  background: linear-gradient(145deg, rgba(60,38,24,0.95), rgba(30,18,11,0.98));
+  box-shadow: 0 0 40px rgba(0,0,0,0.8), 0 0 25px rgba(255,140,0,0.4) inset;
+  text-align: center;
+  position: relative;
+  z-index: 5;
+}
+
+/* TITLES */
+.login-title {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 25px rgba(255,140,0,0.6);
+}
+
+.login-subtitle {
+  opacity: 0.8;
+  margin-bottom: 2rem;
+}
+
+/* INPUT FIELDS */
+.input-wrapper {
+  margin-bottom: 1.2rem;
+}
+
+.rune-input {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 10px;
+  border: 2px solid rgba(255,140,0,0.4);
+  background: rgba(0,0,0,0.4);
+  color: white;
+  font-size: 1.1rem;
+  outline: none;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(255,120,0,0.2);
+}
+
+.rune-input:focus {
+  border-color: rgba(255,180,80,0.9);
+  box-shadow: 0 0 25px rgba(255,180,80,0.8);
+  transform: scale(1.03);
+}
+
+/* LOGIN BUTTON */
+.login-btn {
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 1.3rem;
+}
+
+/* ERROR MESSAGE (STONE SHAKE) */
+.error-shake {
+  color: #ffb347;
+  margin-bottom: 1rem;
+  animation: stoneShake 0.4s ease;
+}
+
+@keyframes stoneShake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+/* CINEMATIC INTRO */
+.cinematic-intro {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: introFade 1.4s ease-out forwards;
+}
+
+@keyframes introFade {
+  0% { opacity: 0; transform: translateY(30px); }
+  60% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* RUNE CIRCLE BEHIND LOGIN */
+.login-rune {
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  opacity: 0.35;
+  animation-duration: 22s;
+}
+.signup-link {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  color: #ffb347;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.signup-anchor {
+  color: #ffd28a;
+  text-decoration: underline;
+  transition: 0.2s;
+}
+
+.signup-anchor:hover {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255,180,80,0.8);
+}
+/* PAGE CONTAINER */
+.login-container {
+  position: relative;
+  min-height: 100vh;
+  background: #1f140d;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* STONE TABLET FRAME */
+.login-frame {
+  width: 380px;
+  padding: 2.5rem;
+  border-radius: 18px;
+  border: 4px solid #5b3a23;
+  background: linear-gradient(145deg, rgba(60,38,24,0.95), rgba(30,18,11,0.98));
+  box-shadow: 0 0 40px rgba(0,0,0,0.8), 0 0 25px rgba(255,140,0,0.4) inset;
+  text-align: center;
+  position: relative;
+  z-index: 5;
+}
+
+/* TITLES */
+.login-title {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 25px rgba(255,140,0,0.6);
+}
+
+.login-subtitle {
+  opacity: 0.8;
+  margin-bottom: 2rem;
+}
+
+/* INPUT FIELDS */
+.input-wrapper {
+  margin-bottom: 1.2rem;
+}
+
+.rune-input {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 10px;
+  border: 2px solid rgba(255,140,0,0.4);
+  background: rgba(0,0,0,0.4);
+  color: white;
+  font-size: 1.1rem;
+  outline: none;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(255,120,0,0.2);
+}
+
+.rune-input:focus {
+  border-color: rgba(255,180,80,0.9);
+  box-shadow: 0 0 25px rgba(255,180,80,0.8);
+  transform: scale(1.03);
+}
+
+/* LOGIN BUTTON */
+.login-btn {
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 1.3rem;
+}
+
+/* ERROR MESSAGE (STONE SHAKE) */
+.error-shake {
+  color: #ffb347;
+  margin-bottom: 1rem;
+  animation: stoneShake 0.4s ease;
+}
+
+@keyframes stoneShake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+/* SIGN UP LINK */
+.signup-link {
+  margin-top: 1rem;
+  color: #ffb347;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.signup-anchor {
+  color: #ffd28a;
+  text-decoration: underline;
+  transition: 0.2s;
+}
+
+.signup-anchor:hover {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255,180,80,0.8);
+}
+
+/* CINEMATIC INTRO */
+.cinematic-intro {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: introFade 1.4s ease-out forwards;
+}
+
+@keyframes introFade {
+  0% { opacity: 0; transform: translateY(30px); }
+  60% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* PARTICLES */
+.particle-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255,150,50,0.4) 2px, transparent 2px);
+  background-size: 4px 4px;
+  animation: drift 20s linear infinite;
+  opacity: 0.25;
+}
+
+@keyframes drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-200px); }
+}
+
+/* TORCH FLICKER */
+.torch-flicker {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 20% 0%, rgba(255,180,80,0.35), transparent 55%),
+              radial-gradient(circle at 80% 0%, rgba(255,140,60,0.25), transparent 55%);
+  mix-blend-mode: screen;
+  animation: torchFlicker 1.4s infinite ease-in-out;
+  opacity: 0.7;
+}
+
+@keyframes torchFlicker {
+  0% { opacity: 0.55; }
+  40% { opacity: 0.8; }
+  70% { opacity: 0.6; }
+  100% { opacity: 0.75; }
+}
+
+/* RUNE CIRCLE */
+.rune-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 4px solid rgba(255,140,0,0.4);
+  box-shadow: 0 0 40px rgba(255,120,0,0.6);
+  animation: rotateRune 18s linear infinite;
+  opacity: 0.5;
+}
+
+.login-rune {
+  width: 300px;
+  height: 300px;
+  opacity: 0.35;
+  animation-duration: 22s;
+}
+
+@keyframes rotateRune {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+/*---------------------------------------------------*/
+.characters-page {
+  min-height: 100vh;
+  padding: 3rem 6vw;
+  background: "#705834";
+  color: #f5f5ff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.characters-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.characters-title {
+  font-size: 2.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: 0 0 18px #7fd0ff55;
+}
+
+.characters-subtitle {
+  margin-top: 0.75rem;
+  color: #c7c7ff;
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.8rem;
+}
+
+.character-card {
+  position: relative;
+  padding: 1.4rem 1.4rem 1.6rem;
+  border-radius: 1.2rem;
+  border: 1px solid #444;
+  background: radial-gradient(circle at top left, #26263a 0, #141422 45%, #050510 100%);
+  overflow: hidden;
+  transform: translateY(0) scale(1);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background 220ms ease;
+}
+
+.character-card:hover {
+  transform: translateY(-6px) scale(1.02);
+}
+
+.character-aura {
+  position: absolute;
+  inset: -40%;
+  opacity: 0.08;
+  filter: blur(40px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.character-header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 0.6rem;
+}
+
+.character-name {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.character-title {
+  display: block;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #d0d0ff;
+  margin-top: 0.15rem;
+}
+
+.character-season-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  padding: 0.15rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.character-tagline {
+  position: relative;
+  z-index: 1;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #f0f0ff;
+  margin: 0.7rem 0 0.5rem;
+}
+
+.character-description {
+  position: relative;
+  z-index: 1;
+  font-size: 0.9rem;
+  color: #dcdcf8;
+  line-height: 1.5;
+}
+
+.character-power {
+  position: relative;
+  z-index: 1;
+  margin-top: 0.9rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.character-power h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #c7c7ff;
+  margin: 0 0 0.25rem;
+}
+
+.character-power p {
+  font-size: 0.85rem;
+  color: #e8e8ff;
+}
+
+/* Optional subtle season-specific tints */
+.character-spring:hover {
+  background: radial-gradient(circle at top, #2b3a30 0, #141422 55%, #050510 100%);
+}
+
+.character-summer:hover {
+  background: radial-gradient(circle at top, #3b3024 0, #141422 55%, #050510 100%);
+}
+
+.character-autumn:hover {
+  background: radial-gradient(circle at top, #3b2624 0, #141422 55%, #050510 100%);
+}
+
+.character-winter:hover {
+  background: radial-gradient(circle at top, #233342 0, #141422 55%, #050510 100%);
+}
+/*---------------------------------------------------*/
+.rune-divider {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+  position: relative;
+}
+
+.rune-symbol {
+  font-size: 2.8rem;
+  color: #dcdcf8;
+  opacity: 0.8;
+  animation: runeSpin 8s linear infinite, runePulse 2.5s ease-in-out infinite;
+  text-shadow: 0 0 12px #7fd0ff, 0 0 24px #7fd0ff55;
+}
+
+@keyframes runeSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes runePulse {
+  0% { opacity: 0.6; text-shadow: 0 0 6px #7fd0ff; }
+  50% { opacity: 1; text-shadow: 0 0 18px #7fd0ff; }
+  100% { opacity: 0.6; text-shadow: 0 0 6px #7fd0ff; }
+}
+/*---------------------------------------------------*/
+
