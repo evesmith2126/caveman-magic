@@ -15,7 +15,7 @@ export const Navbar: React.FC = () => {
   );
 };
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
   nav: {
     display: "flex",
     gap: "2rem",
