@@ -31,7 +31,7 @@ export const StoryPage: React.FC = () => {
   );
 };
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
   container: {
     background: "#3b2a1a",
     color: "white",
