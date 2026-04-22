@@ -98,7 +98,7 @@ export const DownloadPage: React.FC = () => {
   );
 };
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
   container: {
     background: "#2c1a0f",
     color: "white",
