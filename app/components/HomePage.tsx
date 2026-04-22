@@ -56,7 +56,7 @@ export const HomePage = () => {
   );
 }
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
   container: {
     background: "#1f140d",
     color: "white",
