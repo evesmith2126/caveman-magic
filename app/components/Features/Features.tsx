@@ -33,7 +33,7 @@ export const Features: React.FC = () => {
   );
 };
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
   section: { padding: "4rem 2rem", textAlign: "center" },
   heading: { fontSize: "2rem", marginBottom: "2rem" },
   grid: {
